@@ -33,7 +33,7 @@ defmodule ExIEEE754.SinglePrecision do
   Convert float value to binary representation. For example
 
   ```elixir
-  iex(1)> VogtlinRedY.Conversion.from_float(115.16796875)
+  iex> ExIEEE754.SinglePrecision.from_float(115.16796875)
   <<66, 230, 86, 0>>
   ```
   """
