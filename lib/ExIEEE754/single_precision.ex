@@ -4,7 +4,7 @@ defmodule ExIEEE754.SinglePrecision do
 
   For converting to `float` you can use binary data
   as `<<0x42E65600::size(32)>>` or `<<0x42, 0xE6, 0x56, 0x00>>`.
-  In both cases, the function `to_float` returns value `115.16796875`.
+  In both cases, the function `to_float` returns value `{:ok, 115.16796875}`.
   """
 
   @type float32 :: <<_::32>>
@@ -26,11 +26,11 @@ defmodule ExIEEE754.SinglePrecision do
   end
 
   def to_float(_value) do
-    Result.error("Error conversion. It is not possible convert to float!")
+    Result.error("Error conversion. It is not possible convert to float32!")
   end
 
   @doc """
-  Convert float value to binary representation. For example
+  Convert float32 value to binary representation. For example
 
   ```elixir
   iex> ExIEEE754.SinglePrecision.from_float(115.16796875)
