@@ -1,4 +1,4 @@
-# ExIeee754
+# ExIEEE754
 
 **TODO: Add description**
 

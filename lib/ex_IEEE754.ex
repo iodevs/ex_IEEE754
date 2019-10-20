@@ -1,4 +1,4 @@
-defmodule ExIeee754 do
+defmodule ExIEEE754 do
   @moduledoc """
   Documentation for ExIEEE754.
   """
