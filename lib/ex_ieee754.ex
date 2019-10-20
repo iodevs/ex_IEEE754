@@ -1,18 +1,15 @@
 defmodule ExIeee754 do
   @moduledoc """
-  Documentation for ExIeee754.
+  Documentation for ExIEEE754.
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> ExIeee754.hello()
-      :world
-
+  See `ExIEEE754.SinglePrecision.to_float/1`
   """
-  def hello do
-    :world
-  end
+  defdelegate to_float32(binary), to: ExIEEE754.SinglePrecision, as: :to_float
+
+  @doc """
+  See `ExIEEE754.SinglePrecision.from_float/1`
+  """
+  defdelegate from_float32(float), to: ExIEEE754.SinglePrecision, as: :from_float
 end
