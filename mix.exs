@@ -37,7 +37,8 @@ defmodule ExIeee754.MixProject do
       {:credo, "~> 1.1", only: [:dev, :test]},
       {:excoveralls, "~> 0.11", only: :test},
       {:dialyxir, "~> 0.5", only: [:dev, :test], runtime: false},
-      {:result, "~> 1.5"}
+      {:result, "~> 1.5"},
+      {:propcheck, "~> 1.1", only: :test}
     ]
   end
 
