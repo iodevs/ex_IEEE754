@@ -1,61 +1,62 @@
-defmodule SinglePrecisionTest do
+defmodule DoublePrecisionTest do
   @moduledoc false
 
   use ExUnit.Case, async: true
   use PropCheck
-  alias ExIEEE754.SinglePrecision
+  alias ExIEEE754.DoublePrecision
 
-  doctest ExIEEE754.SinglePrecision
+  doctest ExIEEE754.DoublePrecision
 
   property "should convert float to binary and vice versa" do
-    forall {sign, exponent, mantisa} <- {oneof([0, 1]), byte(), bitstring(23)} do
-      hex = <<sign::1, exponent::8, mantisa::bitstring>>
+    forall {sign, exponent, mantisa} <-
+             {oneof([0, 1]), bitstring(11), bitstring(52)} do
+      hex = <<sign::1, exponent::bitstring, mantisa::bitstring>>
 
       rv =
         hex
-        |> SinglePrecision.to_float()
-        |> Result.map(&SinglePrecision.from_float/1)
+        |> DoublePrecision.to_float()
+        |> Result.map(&DoublePrecision.from_float/1)
 
       check_error(rv) or check_conversion(rv, hex)
     end
   end
 
-  test "should failed with Error conversion binary to float32" do
+  test "should failed with Error conversion binary to float64" do
     data = 0x42B63C43
 
     rv =
       data
-      |> SinglePrecision.to_float()
+      |> DoublePrecision.to_float()
 
-    assert rv == {:error, "Error conversion. It is not possible convert to float32!"}
+    assert rv == {:error, "Error conversion. It is not possible convert to float64!"}
   end
 
   test "should failed with error NaN" do
-    data = <<0x7FC00000::size(32)>>
+    data = <<0x7FF8000000000000::size(64)>>
 
     rv =
       data
-      |> SinglePrecision.to_float()
+      |> DoublePrecision.to_float()
 
     assert rv == {:error, "NaN"}
   end
 
   test "should failed with error +Inf" do
-    data = <<0x7F800000::size(32)>>
+    data = <<0x7FF0000000000000::size(64)>>
 
     rv =
       data
-      |> SinglePrecision.to_float()
+      |> DoublePrecision.to_float()
 
     assert rv == {:error, "+Inf"}
   end
 
   test "should failed with error -Inf" do
-    data = <<0xFF800000::size(32)>>
+    data = <<0xFFF0000000000000::size(64)>>
 
     rv =
       data
-      |> SinglePrecision.to_float()
+      |> DoublePrecision.to_float()
 
     assert rv == {:error, "-Inf"}
   end
